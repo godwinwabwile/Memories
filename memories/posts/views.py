@@ -1,9 +1,18 @@
+from multiprocessing import context
 from django.shortcuts import render
+from .models import Post
 
 # Create your views here.
 
 def home(request):
-    topic= "Django"
-    description= "Django is an amazing web framework"
+    qs= Post.objects.all()
+    topic= "django"
+    description= "Django is a good framework that builds powerful sites"
 
-    return render(request, "posts/main.html", {"topic": topic, "description":description})
+    context={
+        "qs":qs,
+        "topic": topic,
+         "description":description
+    }
+
+    return render(request, "posts/main.html", context)
